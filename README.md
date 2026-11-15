@@ -16,7 +16,8 @@ curl -fsSL https://raw.githubusercontent.com/yuukiBK/nosleep-toggle/main/install
 ```
 
 - Homebrew が必要です（なければ https://brew.sh を先に）
-- 再起動後もアイコンを出すには: アイコン → SwiftBar → Preferences → Launch at login
+- 再起動や電源切れのあとも、アイコンは自動で出ます（`~/Library/LaunchAgents/com.nosleep-toggle.swiftbar.plist`）
+- ふたを閉じても眠らない設定は再起動しても残ります。アイコンの状態を見てください
 
 ## 外し方
 

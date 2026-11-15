@@ -36,9 +36,26 @@ sudo /usr/sbin/visudo -cf "$TMP" >/dev/null
 sudo install -m 0440 -o root -g wheel "$TMP" "$SUDOERS_DEST"
 rm -f "$TMP"
 
-# 4. 起動
+# 4. 再起動・電源が落ちたあとも SwiftBar を自動で立ち上げる
+AGENT="$HOME/Library/LaunchAgents/com.nosleep-toggle.swiftbar.plist"
+mkdir -p "$HOME/Library/LaunchAgents"
+cat > "$AGENT" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.nosleep-toggle.swiftbar</string>
+  <key>ProgramArguments</key>
+  <array><string>/usr/bin/open</string><string>-a</string><string>SwiftBar</string></array>
+  <key>RunAtLoad</key><true/>
+</dict>
+</plist>
+PLIST
+launchctl bootout "gui/$(id -u)" "$AGENT" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$AGENT" 2>/dev/null || true
+
+# 5. 起動
 open -a SwiftBar
 sleep 2
 open -g "swiftbar://refreshallplugins" || true
-echo "✅ 完了。メニューバーに月のマークが出ていれば使えます。"
-echo "   再起動後も出すには: 月のマーク → SwiftBar → Preferences → Launch at login にチェック"
+echo "✅ 完了。メニューバーに月のマークが出ていれば使えます（再起動後も自動で出ます）。"
