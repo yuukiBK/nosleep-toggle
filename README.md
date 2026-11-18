@@ -16,7 +16,7 @@ curl -fsSL https://raw.githubusercontent.com/yuukiBK/nosleep-toggle/main/install
 ```
 
 - Homebrew が必要です（なければ https://brew.sh を先に）
-- 再起動や電源切れのあとも、アイコンは自動で出ます（`~/Library/LaunchAgents/com.nosleep-toggle.swiftbar.plist`）
+- アイコンは自動で出ます。ログイン時・落ちたときは立ち上げ、スリープから戻ったときと6時間ごとには立ち上げ直します（アイコンだけ消えることがあるため）。見張りは `~/.config/nosleep/watch.sh` を launchd が1分ごとに呼びます
 - ふたを閉じても眠らない設定は再起動しても残ります。アイコンの状態を見てください
 
 ## 外し方
